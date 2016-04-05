@@ -51,6 +51,7 @@ type Request struct {
 	HTTPClient *http.Client
 	Provider   ProviderApiLocation
 	Type       RequestType
+	ApiKey     string
 
 	// For geocoding, one (and only one) of these must be set.
 	Address  string
@@ -117,6 +118,9 @@ func (r *Request) Values() url.Values {
 		}
 		if r.Language != "" {
 			v.Set("language", r.Language)
+		}
+		if r.ApiKey != "" {
+			v.Set("key", r.ApiKey)
 		}
 		v.Set("sensor", strconv.FormatBool(r.Sensor))
 	case OSM:
